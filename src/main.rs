@@ -6,7 +6,9 @@ use std::{fs::read_to_string, mem::swap, path::PathBuf};
 
 #[derive(Parser, Debug)]
 struct Args {
+    /// The path to the grammar json file
     grammar: PathBuf,
+    /// Maximum number of iterations
     max_iters: Option<usize>,
 }
 
