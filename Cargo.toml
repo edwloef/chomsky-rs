@@ -1,0 +1,14 @@
+[package]
+name = "chomsky-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.16", features = ["derive"] }
+rustc-hash = "2.0.0"
+serde = { version = "1.0.208", features = ["derive"] }
+serde_json = "1.0.125"
+
+[profile.release]
+lto = true
+codegen-units = 1
