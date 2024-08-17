@@ -1,7 +1,7 @@
+use ahash::HashSet;
 use aho_corasick::AhoCorasick;
 use clap::Parser;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use rustc_hash::FxHashSet;
 use serde::Deserialize;
 use std::{fs::read_to_string, mem::swap, path::PathBuf, sync::Mutex};
 
@@ -59,10 +59,10 @@ fn main() {
 
     let grammar = serde_json::from_str::<Grammar>(&read_to_string(&args.grammar).unwrap()).unwrap();
 
-    let mut words = FxHashSet::default();
+    let mut words = HashSet::default();
     words.insert(grammar.start_symbol.clone());
-    let new_words = Mutex::new(FxHashSet::default());
-    let results = Mutex::new(FxHashSet::<String>::default());
+    let new_words = Mutex::new(HashSet::default());
+    let results = Mutex::new(HashSet::default());
 
     let mut iters = 0;
     while iters < args.max_iters.unwrap_or(usize::MAX) && !words.is_empty() {
