@@ -15,7 +15,7 @@ struct Args {
 
 #[derive(Debug, Deserialize)]
 struct Grammar {
-    #[allow(dead_code)]
+    #[expect(dead_code)]
     var_symbols: Vec<String>,
     term_symbols: Vec<String>,
     start_symbol: String,
@@ -45,7 +45,7 @@ impl<'de> Deserialize<'de> for Rule {
         let intermediate_rule: IntermediateRule = Deserialize::deserialize(deserializer)?;
         let aho = AhoCorasick::new([&intermediate_rule.from]).unwrap();
 
-        Ok(Rule {
+        Ok(Self {
             from: intermediate_rule.from,
             to: intermediate_rule.to,
 
@@ -87,8 +87,8 @@ fn main() {
         iters += 1;
     }
 
-    dbg!(iters);
-    dbg!(results.into_inner().unwrap());
+    println!("iters: {iters}");
+    println!("results: {:?}", results.lock().unwrap());
 }
 
 fn is_only_terms(s: &str, grammar: &Grammar) -> bool {
